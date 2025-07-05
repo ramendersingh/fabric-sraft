@@ -103,20 +103,21 @@ func (rs *responseSender) DataType() string {
 // 	return s
 // }
 
-func NewServer(consensusConfig *config.Consensus) (*Server, error) {
+// sraft Changes Date:5-7-2025 Start block ------------------------------
+
+func NewServer(conf *config.TopLevel) (*Server, error) {
 	// Load sRaft if configured
-	if consensusConfig.PluginName == "sraft" {
-		consenter, err := sraft.New(consensusConfig)
-		if err != nil {
-			return nil, fmt.Errorf("failed to initialize sRaft: %v", err)
-		}
-		return &Server{Consenter: consenter}, nil
+	consenter, err := consensus.GetPlugin(conf.Consensus)
+	if err != nil {
+		return nil, err
+	}
+	return &Server{Consenter: consenter}, nil
 	}
 	// Default to another consensus (e.g., Raft)
 	return raft.New(consensusConfig)
 }
 
-// ----------------- sraft Changes Date:5-7-2025 End block ------------------------------
+// ------------------------- sraft Changes Date:5-7-2025 End block 
 
 func CreateThrottlers(throttleConfig localconfig.Throttling) (RateLimiter, RateLimiter) {
 	clientRateLimiter := newRateLimiter(throttleConfig.Rate, throttleConfig.InactivityTimeout)
