@@ -336,3 +336,19 @@ Consensus:
   # SnapDir specifies the location at which snapshots for etcd/raft are
   # stored. Each channel will have its own subdir named after channel ID.
   SnapDir: /var/hyperledger/production/orderer/etcdraft/snapshot
+  
+  # sraft added block 05-07-2025 Start ------------------
+
+  Plugin: sraft
+  SRaft:
+      ElectionTimeout: 2s
+      HeartbeatInterval: 500ms
+      MaxBatchSize: 100
+      Zones:
+          east-1:
+              LeaderPriority: 100
+          west-1:
+              LeaderPriority: 80
+
+
+  # ---------------------sraft added block 05-07-2025 End

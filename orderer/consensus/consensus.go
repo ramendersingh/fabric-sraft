@@ -148,3 +148,12 @@ type NoOpMetadataValidator struct{}
 func (n NoOpMetadataValidator) ValidateConsensusMetadata(oldChannelConfig, newChannelConfig channelconfig.Orderer, newChannel bool) error {
 	return nil
 }
+
+func GetPlugin(cfg *config.Consensus) (consensus.Consenter, error) {
+	switch cfg.PluginName {
+	case "sraft":
+		return sraft.New(cfg.Config), nil
+	default:
+		return raft.New(cfg.Config), nil
+	}
+}

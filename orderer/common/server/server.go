@@ -12,7 +12,6 @@ import (
 	"runtime/debug"
 	"time"
 
-	"github.com/hyperledger/fabric-lib-go/common/metrics"
 	cb "github.com/hyperledger/fabric-protos-go-apiv2/common"
 	ab "github.com/hyperledger/fabric-protos-go-apiv2/orderer"
 	"github.com/hyperledger/fabric/common/deliver"
@@ -81,26 +80,43 @@ func (rs *responseSender) DataType() string {
 	return "block"
 }
 
-// NewServer creates an ab.AtomicBroadcastServer based on the broadcast target and ledger Reader
-func NewServer(
-	r *multichannel.Registrar,
-	metricsProvider metrics.Provider,
-	debug *localconfig.Debug,
-	timeWindow time.Duration,
-	mutualTLS bool,
-	expirationCheckDisabled bool,
-) ab.AtomicBroadcastServer {
-	s := &server{
-		dh: deliver.NewHandler(deliverSupport{Registrar: r}, timeWindow, mutualTLS, deliver.NewMetrics(metricsProvider), expirationCheckDisabled),
-		bh: &broadcast.Handler{
-			SupportRegistrar: broadcastSupport{Registrar: r},
-			Metrics:          broadcast.NewMetrics(metricsProvider),
-		},
-		debug:     debug,
-		Registrar: r,
+// ----------------- sraft Changes Date:5-7-2025 Start block ------------------------------
+
+// // NewServer creates an ab.AtomicBroadcastServer based on the broadcast target and ledger Reader
+// func NewServer(
+// 	r *multichannel.Registrar,
+// 	metricsProvider metrics.Provider,
+// 	debug *localconfig.Debug,
+// 	timeWindow time.Duration,
+// 	mutualTLS bool,
+// 	expirationCheckDisabled bool,
+// ) ab.AtomicBroadcastServer {
+// 	s := &server{
+// 		dh: deliver.NewHandler(deliverSupport{Registrar: r}, timeWindow, mutualTLS, deliver.NewMetrics(metricsProvider), expirationCheckDisabled),
+// 		bh: &broadcast.Handler{
+// 			SupportRegistrar: broadcastSupport{Registrar: r},
+// 			Metrics:          broadcast.NewMetrics(metricsProvider),
+// 		},
+// 		debug:     debug,
+// 		Registrar: r,
+// 	}
+// 	return s
+// }
+
+func NewServer(consensusConfig *config.Consensus) (*Server, error) {
+	// Load sRaft if configured
+	if consensusConfig.PluginName == "sraft" {
+		consenter, err := sraft.New(consensusConfig)
+		if err != nil {
+			return nil, fmt.Errorf("failed to initialize sRaft: %v", err)
+		}
+		return &Server{Consenter: consenter}, nil
 	}
-	return s
+	// Default to another consensus (e.g., Raft)
+	return raft.New(consensusConfig)
 }
+
+// ----------------- sraft Changes Date:5-7-2025 End block ------------------------------
 
 func CreateThrottlers(throttleConfig localconfig.Throttling) (RateLimiter, RateLimiter) {
 	clientRateLimiter := newRateLimiter(throttleConfig.Rate, throttleConfig.InactivityTimeout)

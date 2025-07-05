@@ -647,3 +647,18 @@ Profiles:
             Admins:
               Type: Signature
               Rule: "OR('SampleOrg.member')"
+# sraft added block date 5-7-2025 Start ------------
+
+
+ConsensusType: &ConsensusDefaults
+    Type: sraft
+    Metadata:
+        Zones:
+            - id: "east-1"
+              nodes: ["orderer1-east:7050", "orderer2-east:7050"]
+            - id: "west-1"
+              nodes: ["orderer1-west:7050", "orderer2-west:7050"]
+
+
+
+# ----------------- sraft added block date 5-7-2025 End
