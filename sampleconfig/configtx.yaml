@@ -475,8 +475,11 @@ Profiles:
         - *SampleOrg
     Consortiums:
       SampleConsortium:
-        Organizations:
-          - *SampleOrg
+        ChannelCreationPolicy: /Channel/Application/Admins
+        Organizations: []
+        Capabilities: 
+            <<: *ChannelCapabilities
+        OrdererType: sraft
 
   # SampleInsecureSolo defines a configuration which uses the Solo orderer,
   # contains no MSP definitions, and allows all transactions and channel
@@ -541,6 +544,7 @@ Profiles:
 
   # SampleDevModeEtcdRaft defines a configuration that differs from the
   # SampleDevModeSolo one only in that it uses the etcd/raft-based orderer.
+  # sraft added block date 6-7-2025 Start -only SampleConsortium-----------
   SampleDevModeEtcdRaft:
     <<: *ChannelDefaults
     Orderer:
@@ -570,7 +574,7 @@ Profiles:
               Admins:
                 Type: Signature
                 Rule: "OR('SampleOrg.member')"
-
+  # ----------------- sraft added block date 5-7-2025 End
   # SampleAppChannelInsecureSolo defines an application channel configuration
   # which uses the Solo orderer and contains no MSP definitions.
   SampleAppChannelInsecureSolo:
@@ -647,18 +651,10 @@ Profiles:
             Admins:
               Type: Signature
               Rule: "OR('SampleOrg.member')"
-# sraft added block date 5-7-2025 Start ------------
-
-
-ConsensusType: &ConsensusDefaults
-    Type: sraft
-    Metadata:
-        Zones:
-            - id: "east-1"
-              nodes: ["orderer1-east:7050", "orderer2-east:7050"]
-            - id: "west-1"
-              nodes: ["orderer1-west:7050", "orderer2-west:7050"]
 
 
 
-# ----------------- sraft added block date 5-7-2025 End
+
+
+
+
