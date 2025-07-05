@@ -2,7 +2,7 @@ package sraft
 
 import (
 	"context"
-	"github.com/hyperledger/fabric/protos/orderer/sraft"
+	"github.com/ramendersingh/fabric-sraft/protos/orderer/sraft"
 	"google.golang.org/grpc"
 )
 
