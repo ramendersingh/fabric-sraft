@@ -149,11 +149,15 @@ func (n NoOpMetadataValidator) ValidateConsensusMetadata(oldChannelConfig, newCh
 	return nil
 }
 
+// added for sraft Block 6-7-2025 Start --------------
+
 func GetPlugin(cfg *config.Consensus) (consensus.Consenter, error) {
 	switch cfg.PluginName {
 	case "sraft":
-		return sraft.New(cfg.Config), nil
+		return sraft.New(cfg.Config)
 	default:
-		return raft.New(cfg.Config), nil
+		return raft.New(cfg.Config)
 	}
 }
+
+// ........................added for sraft Block 6-7-2025 End
