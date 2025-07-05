@@ -347,8 +347,14 @@ Consensus:
       Zones:
           east-1:
               LeaderPriority: 100
+              Nodes:
+                  - orderer1-east:7050
+                  - orderer2-east:7050
           west-1:
               LeaderPriority: 80
+              Nodes:
+                  - orderer1-west:7050
+                  - orderer2-west:7050
 
 
   # ---------------------sraft added block 05-07-2025 End
