@@ -24,10 +24,12 @@ endif
 DOCKER_BUILD ?= docker build --force-rm
 DBUILD = $(DOCKER_BUILD) $(DOCKER_BUILD_FLAGS)
 
-DOCKER_NS ?= hyperledger
+#DOCKER_NS ?= hyperledger
+DOCKER_NS ?= ramandersingh
 DOCKER_TAG=$(ARCH)-$(PROJECT_VERSION)
 
-BASE_DOCKER_LABEL=org.hyperledger.fabric
+#BASE_DOCKER_LABEL=org.hyperledger.fabric
+BASE_DOCKER_LABEL=ramandersingh.fabric-sraft
 
 #
 # What is a .dummy file?
