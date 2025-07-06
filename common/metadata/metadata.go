@@ -10,6 +10,6 @@ package metadata
 var (
 	Version         = "latest"
 	CommitSHA       = "development build"
-	BaseDockerLabel = "ramandersingh.fabric-sraft"
-	DockerNamespace = "ramandersingh"
+	BaseDockerLabel = "ramendersingh.fabric-sraft"
+	DockerNamespace = "ramendersingh"
 )
