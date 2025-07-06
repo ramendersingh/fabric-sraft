@@ -3,7 +3,7 @@ module github.com/hyperledger/fabric
 go 1.24.4
 
 require (
-	code.cloudfoundry.org/clock v1.15.0
+	code.cloudfoundry.org/clock v1.1.0
 	github.com/IBM/idemix v0.0.2-0.20240913182345-72941a5f41cd
 	github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible
 	github.com/VictoriaMetrics/fastcache v1.12.2
@@ -31,7 +31,7 @@ require (
 	github.com/spf13/viper v1.20.0-alpha.6
 	github.com/stretchr/testify v1.10.0 // includes ErrorContains
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d
-	github.com/tedsuo/ifrit v0.0.0-20230516164442-7862c310ad26
+	github.com/tedsuo/ifrit v0.0.0-20230330192023-5cba443a66c4
 	go.etcd.io/etcd/client/pkg/v3 v3.5.16
 	go.etcd.io/etcd/raft/v3 v3.5.16
 	go.etcd.io/etcd/server/v3 v3.5.16
@@ -118,6 +118,7 @@ require (
 	golang.org/x/sys v0.32.0 // indirect
 	golang.org/x/text v0.24.0 // indirect
 	golang.org/x/tools v0.26.0 // indirect
+	gonum.org/v1/gonum v0.9.3 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250218202821-56aae31c358a // indirect
 	rsc.io/tmplfunc v0.0.3 // indirect
 )
