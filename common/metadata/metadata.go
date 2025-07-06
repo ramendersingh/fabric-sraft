@@ -10,6 +10,6 @@ package metadata
 var (
 	Version         = "latest"
 	CommitSHA       = "development build"
-	BaseDockerLabel = "org.hyperledger.fabric"
-	DockerNamespace = "hyperledger"
+	BaseDockerLabel = "ramandersingh.fabric-sraft"
+	DockerNamespace = "ramandersingh"
 )
